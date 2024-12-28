@@ -77,18 +77,18 @@ const RestaurantSubmissionForm = () => {
           />
         </div>
 
-        {/* Dish Image */}
+        {/* Restaurant logo */}
         <div className="mb-4">
           <label
-            htmlFor="dishImage"
+            htmlFor="restaurantLogo"
             className="block text-sm font-medium text-gray-700"
           >
             Dish Image
           </label>
           <input
             type="file"
-            id="dishImage"
-            name="dishImage"
+            id="restaurantLogo"
+            name="restaurantLogo"
             onChange={handleFileChange}
             className="w-full mt-2 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
