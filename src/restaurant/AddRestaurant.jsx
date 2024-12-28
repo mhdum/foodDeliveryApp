@@ -83,7 +83,7 @@ const RestaurantSubmissionForm = () => {
             htmlFor="restaurantLogo"
             className="block text-sm font-medium text-gray-700"
           >
-            Dish Image
+            Restaurant Logo
           </label>
           <input
             type="file"
