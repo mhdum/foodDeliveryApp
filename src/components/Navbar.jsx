@@ -13,7 +13,10 @@ const Navbar = () => {
           <a href="/" className="hover:bg-[#4b00d3] px-3 py-2 rounded-md">
             Home
           </a>
-          <a href="/restaurant/AddRestaurant" className="hover:bg-[#4b00d3] px-3 py-2 rounded-md">
+          <a
+            href="/restaurant/SignUpRestaurant"
+            className="hover:bg-[#4b00d3] px-3 py-2 rounded-md"
+          >
             Add Restaurant
           </a>
 

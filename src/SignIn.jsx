@@ -1,14 +1,46 @@
-// src/components/SignIn.jsx
 import React, { useState } from "react";
 import Navbar from "./components/Navbar";
+import { useNavigate } from "react-router-dom";
+import { auth, signInWithEmailAndPassword } from "./backend/fireBase";
+import { ref } from "firebase/storage";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
-  const handleSignIn = (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault();
-    console.log("Signed In with", { email, password });
+
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      const userId = userCredential.user.uid;
+      const userRef = ref(db, "users/" + userId);
+      const snapshot = await get(userRef);
+
+      if (snapshot.exists()) {
+        const userData = snapshot.val();
+        const userRole = userData.role;
+        if (userRole === "customer") {
+          navigate("/userDashboard");
+        } else if (userRole === "restaurant owner") {
+          navigate("/restaurantDashboard");
+        } else {
+          setError("Invalid role. Please contact support.");
+        }
+      } else {
+        setError("User data not found.");
+      }
+    } catch (error) {
+      console.error("Error signing in:", error);
+      setError(error.message);
+    }
   };
 
   return (
@@ -16,6 +48,10 @@ const SignIn = () => {
       <Navbar />
       <div className="max-w-sm mx-auto mt-20 bg-white p-8 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold text-center mb-6">Sign In</h2>
+
+        {/* Error Message */}
+        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+
         <form onSubmit={handleSignIn}>
           <div className="mb-4">
             <label
@@ -66,5 +102,4 @@ const SignIn = () => {
     </>
   );
 };
-
 export default SignIn;

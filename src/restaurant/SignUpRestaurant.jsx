@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import Navbar from "./components/Navbar";
+import Navbar from "../components/Navbar";
 import {
   auth,
   db,
   ref,
   set,
   createUserWithEmailAndPassword,
-} from "./backend/fireBase";
+} from "../backend/fireBase";
 
-const SignUp = () => {
+const SignUpRestaurant = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -36,7 +36,7 @@ const SignUp = () => {
         email,
         name,
         createdAt: new Date().toISOString(),
-        role: "customer",
+        role: "restaurant owner",
       };
 
       await set(ref(db, "users/" + userId), userData);
@@ -45,7 +45,7 @@ const SignUp = () => {
       setPassword("");
       setConfirmPassword("");
 
-      window.location.href = "./components/userDashboard";
+      window.location.href = "./AddRestaurant";
     } catch (error) {
       console.error("Error during signup:", error);
       setError(error.message || "An error occurred. Please try again.");
@@ -141,4 +141,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignUpRestaurant;
